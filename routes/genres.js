@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Genre, validateGenre } = require("../models/genre");
 const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 
 // C
 router.post("/", auth, async (req, res) => {
@@ -16,7 +17,8 @@ router.post("/", auth, async (req, res) => {
 });
 
 // R
-router.get("/", async (req, res) => {
+router.get("/", async (_, res) => {
+  throw new Error("Could not get the genres again");
   const genres = await Genre.find().sort("name");
   res.send(genres);
 });
@@ -50,7 +52,7 @@ router.put("/:id", auth, async (req, res) => {
 });
 
 // D
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
   const genre = await Genre.findByIdAndRemove(req.params.id);
   if (!genre)
     return res.status(404).send("The genre with the given id was not found.");

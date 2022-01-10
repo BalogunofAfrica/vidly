@@ -25,7 +25,8 @@ router.post("/", auth, async (req, res) => {
 
 // R
 router.get("/me", auth, async (req, res) => {
-  const user = await User.findById(req?.user?._id).select("-password");
+  // @ts-ignore
+  const user = await User.findById(req.user?._id).select("-password");
   res.send(user);
 });
 
