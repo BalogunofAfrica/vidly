@@ -1,6 +1,6 @@
 require("express-async-errors");
 const winston = require("winston");
-require("winston-mongodb");
+// require("winston-mongodb");
 
 // process.on("uncaughtException", (ex) => {
 //   winston.error(ex.message, ex);
@@ -12,10 +12,10 @@ const logger = winston.createLogger({
     new winston.transports.File({
       filename: "logfile.log",
     }),
-    new winston.transports.MongoDB({
-      db: "mongodb://localhost/vidly",
-      level: "error",
-    }),
+    // new winston.transports.MongoDB({
+    //   db: "mongodb://localhost/vidly",
+    //   level: "error",
+    // }),
   ],
   exceptionHandlers: [
     new winston.transports.Console(),
